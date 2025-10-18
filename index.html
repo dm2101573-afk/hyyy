@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Halfworld🌎</title>
   <style>
     body {
@@ -33,6 +33,7 @@
       gap: 20px;
       flex-wrap: wrap;
       justify-content: center;
+      margin-top: 30px;
     }
 
     .image-gallery img {
@@ -47,22 +48,50 @@
     .image-gallery img:hover {
       transform: scale(1.1);
     }
+
+    .play-button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: rgba(255, 105, 180, 0.8);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      transition: background-color 0.3s;
+    }
+
+    .play-button:hover {
+      background-color: rgba(255, 20, 147, 0.9);
+    }
   </style>
 </head>
 <body>
-  <h1>I LOVE YOU DARLING😍😘❤️👩‍❤️‍👨💖</h1>
+  <h1>I LOVE YOU DARLING 😍😘❤️👩‍❤️‍👨💖</h1>
 
-  <!-- 💖 Audio Element -->
-  <audio autoplay loop>
-    <source src="song2.mp3" type="audio/mpeg">
+  <!-- 💖 Hidden Audio Element -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="audio.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
+  <!-- 🖼️ Image Gallery -->
   <div class="image-gallery">
-    <img src="pic1.jpg" alt="Memory 1">
-    <img src="pic2.jpg" alt="Memory 2">
-    <img src="pic3.jpg" alt="Memory 3">
-    <img src="pic4.jpg" alt="Memory 4">
+    <img src="pic1.jpg" alt="Memory 1" />
+    <img src="pic2.jpg" alt="Memory 2" />
+    <img src="pic3.jpg" alt="Memory 3" />
+    <img src="pic4.jpg" alt="Memory 4" />
   </div>
+
+  <script>
+    function playMusic() {
+      const audio = document.getElementById("bgMusic");
+      audio.play().catch((error) => {
+        console.error("Playback failed:", error);
+        alert("Unable to play music automatically. Please try again.");
+      });
+    }
+  </script>
 </body>
 </html>

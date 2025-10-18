@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Halfworld🌎</title>
+  <title>My Halfworld 🌎</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -13,84 +17,155 @@
       background-size: cover;
       background-position: center;
       min-height: 100vh;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       color: white;
       text-align: center;
+      overflow-x: hidden;
     }
 
     h1 {
-      margin-bottom: 20px;
-      font-size: 3em;
-      text-shadow: 2px 2px 4px #000;
+      margin-top: 40px;
+      font-size: 3rem;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+      padding: 0 20px;
+      animation: fadeIn 2s ease-out;
     }
 
-    .image-gallery {
+    .carousel-wrapper {
+      overflow: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin-top: 40px;
+    }
+
+    .carousel {
       display: flex;
       gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 30px;
+      animation: scrollLeft 40s linear infinite;
     }
 
-    .image-gallery img {
-      width: 300px;
-      height: 300px;
+    .carousel:hover {
+      animation-play-state: paused;
+    }
+
+    .carousel img {
+      width: 280px;
+      height: 280px;
+      flex-shrink: 0;
       border-radius: 15px;
       object-fit: cover;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+      transition: transform 0.4s ease;
     }
 
-    .image-gallery img:hover {
-      transform: scale(1.1);
+    .carousel img:hover {
+      transform: scale(1.05);
     }
 
-    .play-button {
-      padding: 12px 25px;
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .carousel-inner {
+      display: flex;
+      gap: 20px;
+    }
+
+    /* Duplicate the images for infinite scroll */
+    .carousel-inner > * {
+      flex-shrink: 0;
+    }
+
+    .audio-toggle {
+      padding: 14px 28px;
       font-size: 1rem;
       margin-top: 20px;
       border: none;
-      border-radius: 10px;
-      background-color: rgba(255, 105, 180, 0.8);
+      border-radius: 30px;
+      background-color: rgba(255, 105, 180, 0.85);
       color: white;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-      transition: background-color 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transition: background-color 0.3s, transform 0.2s;
     }
 
-    .play-button:hover {
-      background-color: rgba(255, 20, 147, 0.9);
+    .audio-toggle:hover {
+      background-color: rgba(255, 20, 147, 0.95);
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .carousel img {
+        width: 200px;
+        height: 200px;
+      }
+
+      .audio-toggle {
+        width: 80%;
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
 <body>
   <h1>I LOVE YOU DARLING 😍😘❤️👩‍❤️‍👨💖</h1>
 
-  <!-- 💖 Hidden Audio Element -->
-  <audio id="bgMusic" autoplay loop>
+  <!-- 🎵 Audio Toggle -->
+  <button class="audio-toggle" onclick="toggleMusic()" id="audioBtn">Play Music 🎵</button>
+
+  <!-- 🔊 Audio Element -->
+  <audio id="bgMusic" loop>
     <source src="thousand_year.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
-  <!-- 🖼️ Image Gallery -->
-  <div class="image-gallery">
-    <img src="pic1.jpg" alt="Memory 1" />
-    <img src="pic2.jpg" alt="Memory 2" />
-    <img src="pic3.jpg" alt="Memory 3" />
-    <img src="pic4.jpg" alt="Memory 4" />
+  <!-- 🖼️ Infinite Carousel -->
+  <div class="carousel-wrapper">
+    <div class="carousel">
+      <div class="carousel-inner">
+        <img src="pic1.jpg" alt="Memory 1" />
+        <img src="pic2.jpg" alt="Memory 2" />
+        <img src="pic3.jpg" alt="Memory 3" />
+        <img src="pic4.jpg" alt="Memory 4" />
+        <img src="pic1.jpg" alt="Memory 1 duplicate" />
+        <img src="pic2.jpg" alt="Memory 2 duplicate" />
+        <img src="pic3.jpg" alt="Memory 3 duplicate" />
+        <img src="pic4.jpg" alt="Memory 4 duplicate" />
+      </div>
+    </div>
   </div>
 
   <script>
-    function playMusic() {
-      const audio = document.getElementById("bgMusic");
-      audio.play().catch((error) => {
-        console.error("Playback failed:", error);
-        alert("Unable to play music automatically. Please try again.");
-      });
+    const audio = document.getElementById("bgMusic");
+    const btn = document.getElementById("audioBtn");
+    let isPlaying = false;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        btn.textContent = "Play Music 🎵";
+      } else {
+        audio.play().then(() => {
+          btn.textContent = "Pause Music ⏸️";
+        }).catch(err => {
+          console.error("Audio playback failed:", err);
+          alert("Unable to play music. Tap again or check if the file is missing.");
+        });
+      }
+      isPlaying = !isPlaying;
     }
   </script>
 </body>

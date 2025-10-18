@@ -7,20 +7,57 @@
     body {
       margin: 0;
       padding: 0;
-      background-image: url('heart-background.png'); /* File name used below */
+      background-image: url('heart-background.png'); /* Background */
       background-repeat: no-repeat;
-      background-size: cover; /* or use `contain` if you prefer */
+      background-size: cover;
       background-position: center;
       height: 100vh;
       font-family: sans-serif;
       display: flex;
+      flex-direction: column; /* Stack vertically */
       justify-content: center;
       align-items: center;
       color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 3em;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    .image-gallery {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .image-gallery img {
+      width: 300px;
+      height: 300px;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .image-gallery img:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
 <body>
   <h1>I LOVE YOU DARLING😍😘❤️👩‍❤️‍👨💖</h1>
+<audio autoplay loop>
+  <source src="song.mp3"type="audio/mpeg"
+</audio>
+  <div class="image-gallery">
+    <img src="/pic1.jpg" alt="Memory 1">
+    <img src="/pic2.jpg" alt="Memory 2">
+    <img src="/pic3.jpg" alt="Memory 3">
+    <img src="/pic4.jpg" alt="Memory 4">
+  </div>
 </body>
 </html>
